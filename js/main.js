@@ -1,6 +1,6 @@
 function getRandomNumber(min, max) {
   if(min >= max  || min < 0 || max < 0) {
-    return alert('Error');
+    return;
   }
 
   min = Math.ceil(min);
@@ -13,7 +13,7 @@ getRandomNumber(10, 137);
 
 function getrandomCoordinate(min, max, number) {
   if(min >= max  || min < 0 || max < 0) {
-    return alert('Error');
+    return;
   }
 
   min = Math.ceil(min);
