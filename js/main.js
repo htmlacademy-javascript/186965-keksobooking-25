@@ -39,10 +39,9 @@ const HOUSES_DESCRIPTION = [
   'Двухкомнатная видовая квартира полностью меблированная, кроме одной комнаты, которую можно использовать под детскую/кабинет/гостевую. Окна квартиры и балкон с панорамным остеклением выходят на зелёный массив парка и красочные закаты.',
   'В квартире произведён евроремонт полгода назад. Полностью обставлена новой современной мебелью из ИКЕИ. Имеется застеклённая лоджия. Дом расположен в 300 метрах от метро.',
   'Сдается квартира студия в новом доме, от метро 10 мин транспортом. Для 1-2х граждан РФ.'];
-const HOUSES_PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg']
+const HOUSES_PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 const avatarsImages = [];
 const similarCards = [];
-
 
 const creatAvatars  = (number) => {
   for(let i = 1; i <= number; i++) {
@@ -91,5 +90,3 @@ const creatCard = () => {
 };
 
 creatCard();
-
-console.log(similarCards)
