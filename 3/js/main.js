@@ -43,9 +43,9 @@ const HOUSES_PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascri
 const avatarsImages = [];
 const similarCards = [];
 
-const creatAvatars  = (number) => {
+const createAvatars  = (number) => {
   for(let i = 1; i <= number; i++) {
-    if(i > 0 && i < 10) {
+    if(i < number) {
       i = `0${i}`;
     }
 
@@ -53,14 +53,14 @@ const creatAvatars  = (number) => {
   }
 };
 
-creatAvatars(CARDS_AMOUNT);
+createAvatars(CARDS_AMOUNT);
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
 const creatCard = () => {
   for(let i = 0; i < CARDS_AMOUNT; i++) {
-    const lat = getRandomCoordinate(35.65000, 35.70000, getRandomNumber(1, 20));
-    const lng = getRandomCoordinate(139.70000, 139.80000, getRandomNumber(1, 20));
+    const lat = getRandomCoordinate(35.65, 35.7, getRandomNumber(1, 20));
+    const lng = getRandomCoordinate(139.7, 139.8, getRandomNumber(1, 20));
 
     const newCard = {
       author: {
@@ -68,7 +68,7 @@ const creatCard = () => {
       },
       offer: {
         title: getRandomArrayElement(titlesArray),
-        address: `${lat}`, lng: `${lng}`,
+        address: `${lat}, ${lng}`,
         price: getRandomNumber(0, 3000),
         type: getRandomArrayElement(HOUSES_TYPES),
         rooms: getRandomNumber(1, 10),
