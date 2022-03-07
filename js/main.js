@@ -1,3 +1,3 @@
-import {createCard} from './data.js';
+import {createCards} from './data.js';
 
-createCard();
+createCards();
