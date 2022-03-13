@@ -1,11 +1,5 @@
 import { createCards } from './data.js';
-
-
-const inflectWord = (number, words) => {
-  const cases = [2, 0, 1, 1, 1, 2];
-  return words[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
-};
-
+import { inflectWord } from './util.js';
 
 const TYPES_OF_HOUSES = {
   flat: 'Квартира',
