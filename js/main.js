@@ -1,3 +1,3 @@
-import {createCards} from './data.js';
+import './similar-elements.js';
 
-createCards();
+
