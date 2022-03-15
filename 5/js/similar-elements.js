@@ -9,60 +9,79 @@ const TYPES_OF_HOUSES = {
   hotel: 'Отель'
 };
 
-const templateCard = document.querySelector('#card').content.querySelector('.popup');// шаблон карточки
-const similarCarsList = document.querySelector('#map-canvas'); // куда вставлять карточки
-const similarCards = createCards(); // массив сгенерированной информации для карточек
-const similarListFragment = document.createDocumentFragment();
 
-similarCards.forEach((card) => {
-  const similarCard = templateCard.cloneNode(true);
-  const offerType = card.offer.type;
-  const popupFeaturesContainer = similarCard.querySelector('.popup__features');
-  const popupFeaturesList = popupFeaturesContainer.querySelectorAll('.popup__feature');
-  const roomsAmount = card.offer.rooms;
-  const guestAmount = card.offer.guests;
+const templateCardElement = document.querySelector('#card').content.querySelector('.popup'); // шаблон карточки
+const similarCardContainerElement = document.querySelector('#map-canvas'); // куда вставлять карточки
+const similarCardElements = createCards(); // массив сгенерированной информации для карточек
+const similarFragmentElement = document.createDocumentFragment();
 
-  similarCard.querySelector('.popup__title').textContent = card.offer.title;
-  similarCard.querySelector('.popup__text--address').textContent = card.offer.address;
-  similarCard.querySelector('.popup__text--price').textContent = `${card.offer.price} ₽/ночь`;
-  similarCard.querySelector('.popup__type').textContent = TYPES_OF_HOUSES[offerType];
 
-  similarCard.querySelector('.popup__text--capacity').textContent = `${roomsAmount} ${inflectWord(roomsAmount, ['комната', 'комнаты', 'комнат'])} для ${guestAmount} ${inflectWord(guestAmount, ['гостя', 'гостей', 'гостей'])}`;
+const createHouseCapacityDescription = (item, element) => {
+  const roomsAmount = item.offer.rooms;
+  const guestAmount = item.offer.guests;
 
-  similarCard.querySelector('.popup__text--time').textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
+  element.querySelector('.popup__text--capacity').textContent = `${roomsAmount} ${inflectWord(roomsAmount, ['комната', 'комнаты', 'комнат'])} для ${guestAmount} ${inflectWord(guestAmount, ['гостя', 'гостей', 'гостей'])}`;
 
-  popupFeaturesList.forEach((popupFeaturesListItem) => {
-    const isNessary = card.offer.features.some((feature) => popupFeaturesListItem.classList.contains(`popup__feature--${feature}`));
+};
+
+const createHouseFeaturesList = (item, element) => {
+  const popupFeatureContainerElement = element.querySelector('.popup__features');
+  const popupFeaturesElements = popupFeatureContainerElement.querySelectorAll('.popup__feature');
+
+  popupFeaturesElements.forEach((popupFeaturesListItem) => {
+    const isNessary = item.offer.features.some((feature) => popupFeaturesListItem.classList.contains(`popup__feature--${feature}`));
 
     if(!isNessary) {
       popupFeaturesListItem.remove();
     }
   });
+};
 
-  similarCard.querySelector('.popup__description').textContent = card.offer.description;
 
-  const photoContainer = similarCard.querySelector('.popup__photos');
-  photoContainer.innerHTML = '';
-  const photoBox = document.createDocumentFragment();
+const creatHousePhotos = (items, element) => {
+  const photoContainerElement = element.querySelector('.popup__photos');
+  photoContainerElement .innerHTML = '';
+  const photoBoxElement = document.createDocumentFragment();
 
-  for(let i = 0; i < card.offer.photos.length; i++) {
+  items.offer.photos.forEach((item) => {
     const photo = document.createElement('img');
     photo.classList.add('popup__photo');
     photo.setAttribute('width', '45');
     photo.setAttribute('height', '40');
     photo.setAttribute('alt', 'Фотография жилья');
-    photo.setAttribute('src', card.offer.photos[i]);
+    photo.setAttribute('src', item);
 
-    photoBox.append(photo);
-  }
+    photoBoxElement.append(photo);
+  });
 
-  photoContainer.append(photoBox);
+  photoContainerElement.append(photoBoxElement);
+};
 
-  similarCard.querySelector('.popup__avatar').src = card.author.avatar;
 
-  similarListFragment.append(similarCard);
+similarCardElements.forEach((card) => {
+  const similarCardElement = templateCardElement.cloneNode(true);
+  const offerType = card.offer.type;
+
+  similarCardElement.querySelector('.popup__title').textContent = card.offer.title;
+  similarCardElement.querySelector('.popup__text--address').textContent = card.offer.address;
+  similarCardElement.querySelector('.popup__text--price').textContent = `${card.offer.price} ₽/ночь`;
+  similarCardElement.querySelector('.popup__type').textContent = TYPES_OF_HOUSES[offerType];
+
+  createHouseCapacityDescription(card, similarCardElement);
+
+  similarCardElement.querySelector('.popup__text--time').textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
+
+  createHouseFeaturesList(card, similarCardElement);
+
+  similarCardElement.querySelector('.popup__description').textContent = card.offer.description;
+
+  creatHousePhotos(card, similarCardElement);
+
+  similarCardElement.querySelector('.popup__avatar').src = card.author.avatar;
+
+  similarFragmentElement.append(similarCardElement);
 
 });
 
-similarCarsList.append(similarListFragment);
+similarCardContainerElement.append(similarFragmentElement);
 
