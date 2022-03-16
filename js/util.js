@@ -23,6 +23,12 @@ const getRandomCoordinate = (min, max, number) => {
 };
 
 
+const inflectWord = (number, words) => {
+  const cases = [2, 0, 1, 1, 1, 2];
+  return words[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+};
+
+
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-export {getRandomArrayElement, getRandomNumber, getRandomCoordinate};
+export {getRandomArrayElement, getRandomNumber, getRandomCoordinate, inflectWord};
