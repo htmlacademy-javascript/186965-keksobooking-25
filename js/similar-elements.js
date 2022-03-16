@@ -12,7 +12,7 @@ const TYPES_OF_HOUSES = {
 
 const templateCardElement = document.querySelector('#card').content.querySelector('.popup'); // шаблон карточки
 const similarCardContainerElement = document.querySelector('#map-canvas'); // куда вставлять карточки
-const similarCardElements = createCards(); // массив сгенерированной информации для карточек
+const similarCards = createCards(); // массив сгенерированной информации для карточек
 const similarFragmentElement = document.createDocumentFragment();
 
 
@@ -58,7 +58,7 @@ const creatHousePhotos = (items, element) => {
 };
 
 
-similarCardElements.forEach((card) => {
+similarCards.forEach((card) => {
   const similarCardElement = templateCardElement.cloneNode(true);
   const offerType = card.offer.type;
 

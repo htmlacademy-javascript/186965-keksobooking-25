@@ -1,7 +1,7 @@
 import './similar-elements.js';
-import {inactiveFormState, activeFormState} from './form.js';
+import {setInactiveFormState, setActiveFormState} from './form.js';
 
-inactiveFormState();
-activeFormState();
+setInactiveFormState();
+setActiveFormState();
 
 
