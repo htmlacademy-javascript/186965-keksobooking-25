@@ -1,5 +1,6 @@
 const mainFormElement = document.querySelector('.ad-form');
-const formElements =mainFormElement.querySelectorAll('.ad-form__element');
+const formElements = mainFormElement.querySelectorAll('.ad-form__element');
+const formAvatarElement = mainFormElement.querySelector('.ad-form-header__input');
 const formFilterElement = document.querySelector('.map__filters');
 const filterElements = formFilterElement.querySelectorAll('.map__filter');
 const filterFeaturesElement = formFilterElement.querySelector('.map__features');
@@ -7,14 +8,15 @@ const filterFeaturesElement = formFilterElement.querySelector('.map__features');
 const setInactiveFormState = () => {
   mainFormElement.classList.add('ad-form--disabled');
   formFilterElement.classList.add('map__filters--disabled');
-  filterFeaturesElement.setAttribute('disabled', 'disabled');
+  formAvatarElement.disabled = true;
+  filterFeaturesElement.disabled = true;
 
   formElements.forEach((element) => {
-    element.setAttribute('disabled', 'disabled');
+    element.disabled = true;
   });
 
   filterElements.forEach((filter) => {
-    filter.setAttribute('disabled', 'disabled');
+    filter.disabled = true;
   });
 };
 
@@ -22,14 +24,14 @@ const setInactiveFormState = () => {
 const setActiveFormState = () => {
   mainFormElement.classList.remove('ad-form--disabled');
   formFilterElement.classList.remove('map__filters--disabled');
-  filterFeaturesElement.removeAttribute('disabled', 'disabled');
+  filterFeaturesElement.disabled = false;
 
   formElements.forEach((element) => {
-    element.removeAttribute('disabled', 'disabled');
+    element.disabled = false;
   });
 
   filterElements.forEach((filter) => {
-    filter.removeAttribute('disabled', 'disabled');
+    filter.disabled = false;
   });
 };
 

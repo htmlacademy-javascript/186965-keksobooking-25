@@ -38,7 +38,7 @@ const createHouseFeaturesList = (item, element) => {
 };
 
 
-const creatHousePhotos = (items, element) => {
+const createHousePhotos = (items, element) => {
   const photoContainerElement = element.querySelector('.popup__photos');
   photoContainerElement .innerHTML = '';
   const photoBoxElement = document.createDocumentFragment();
@@ -75,7 +75,7 @@ similarCards.forEach((card) => {
 
   similarCardElement.querySelector('.popup__description').textContent = card.offer.description;
 
-  creatHousePhotos(card, similarCardElement);
+  createHousePhotos(card, similarCardElement);
 
   similarCardElement.querySelector('.popup__avatar').src = card.author.avatar;
 
