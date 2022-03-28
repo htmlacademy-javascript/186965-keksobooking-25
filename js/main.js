@@ -4,6 +4,3 @@ import './form-validation.js';
 
 setInactiveFormState();
 setActiveFormState();
-
-
-

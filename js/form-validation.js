@@ -11,6 +11,14 @@ const capacityOptionsElement = {
   '100': ['0']
 };
 
+const priceForNightElement = mainFormElement.querySelector('#price');
+const minPriceForANight = {
+  'bungalow': '0',
+  'flat': '1000',
+  'hotel': '3000',
+  'house': '5000',
+  'palace': '10000'
+};
 
 const pristine = new Pristine(mainFormElement, {
   classTo: 'ad-form__element',
@@ -44,6 +52,30 @@ const roomsErrorMessage = () => {
 
 pristine.addValidator(roomNumberElement, validateRoomsAndCapacity, roomsErrorMessage );
 pristine.addValidator(roomCapacityElement, validateRoomsAndCapacity, roomsErrorMessage);
+
+
+const validatePriceForANight = (value) => {
+  const typeOfFlat = mainFormElement.querySelector('[name="type"]');
+  return value.length && parseInt(value, 10) <= minPriceForANight[typeOfFlat.value];
+};
+
+const validatePriceTextError = () => {
+  const typeOfFlat = mainFormElement.querySelector('[name="type"]');
+  return `Минимальная цена за ночь ${minPriceForANight[typeOfFlat.value]}`;
+};
+
+const validatePriceChange = () => {
+  const typeOfFlat = mainFormElement.querySelector('[name="type"]');
+  priceForNightElement.placeholder = minPriceForANight[typeOfFlat.value];
+  pristine.validate(priceForNightElement);
+};
+
+mainFormElement.querySelectorAll('[name="type"]').forEach((item) => item.addEventListener('change', validatePriceChange));
+
+pristine.addValidator(priceForNightElement, validatePriceForANight, validatePriceTextError );
+
+// Поля «Время заезда» и «Время выезда» синхронизированы: при изменении значения одного поля во втором выделяется соответствующее ему значение. Например, если время заезда указано «после 14», то время выезда будет равно «до 14» и наоборот.
+
 
 
 mainFormElement.addEventListener('submit', (evt) => {
