@@ -56,7 +56,7 @@ pristine.addValidator(roomCapacityElement, validateRoomsAndCapacity, roomsErrorM
 
 const validatePriceForANight = (value) => {
   const typeOfFlat = mainFormElement.querySelector('[name="type"]');
-  return value.length && parseInt(value, 10) <= minPriceForANight[typeOfFlat.value];
+  return value.length && parseInt(value, 10) >= minPriceForANight[typeOfFlat.value];
 };
 
 const validatePriceTextError = () => {
@@ -70,13 +70,32 @@ const validatePriceChange = () => {
   pristine.validate(priceForNightElement);
 };
 
-mainFormElement.querySelectorAll('[name="type"]').forEach((item) => item.addEventListener('change', validatePriceChange));
 
-pristine.addValidator(priceForNightElement, validatePriceForANight, validatePriceTextError );
+mainFormElement.addEventListener('change', validatePriceChange);
 
-// Поля «Время заезда» и «Время выезда» синхронизированы: при изменении значения одного поля во втором выделяется соответствующее ему значение. Например, если время заезда указано «после 14», то время выезда будет равно «до 14» и наоборот.
+pristine.addValidator(priceForNightElement, validatePriceForANight, validatePriceTextError);
 
 
+const checkinElement = mainFormElement.querySelector('[name="timein"]');
+const checkoutElement = mainFormElement.querySelector('[name="timeout"]');
+
+const timeInAndTineOutOptions = {
+  '12:00': '12:00',
+  '13:00': '13:00',
+  '14:00': '14:00'
+};
+
+const validateCheckInAndCheckOut = () => timeInAndTineOutOptions[checkinElement.value].includes(checkoutElement.value);
+
+const validateChangeOfCheckin = () => {
+  checkoutElement.value = timeInAndTineOutOptions[checkinElement.value];
+  pristine.validate(checkoutElement);
+};
+
+mainFormElement.addEventListener('change', validateChangeOfCheckin);
+
+pristine.addValidator(checkinElement, validateCheckInAndCheckOut);
+pristine.addValidator(checkoutElement, validateCheckInAndCheckOut);
 
 mainFormElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
