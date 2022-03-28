@@ -27,7 +27,7 @@ const pristine = new Pristine(mainFormElement, {
 });
 
 const validateTitle = (value) => value.length >= 30 && value.length <= 100;
-const validatePrice = (price) => price.value <= 0;
+const validatePrice = (price) => price.length > 0;
 
 pristine.addValidator(rentalTitleElement, validateTitle, 'Обязательное поле. От 30 до 100 символов.');
 pristine.addValidator(rentalPriceElement, validatePrice, 'Обязательное поле');
@@ -98,8 +98,11 @@ pristine.addValidator(checkinElement, validateCheckInAndCheckOut);
 pristine.addValidator(checkoutElement, validateCheckInAndCheckOut);
 
 mainFormElement.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+  const isValid = pristine.validate();
+
+  if(!isValid) {
+    evt.preventDefault();
+  }
 });
 
 
