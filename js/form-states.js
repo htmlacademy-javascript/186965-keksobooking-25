@@ -24,6 +24,7 @@ const setInactiveFormState = () => {
 const setActiveFormState = () => {
   mainFormElement.classList.remove('ad-form--disabled');
   formFilterElement.classList.remove('map__filters--disabled');
+  formAvatarElement.disabled = false;
   filterFeaturesElement.disabled = false;
 
   formElements.forEach((element) => {
@@ -36,4 +37,4 @@ const setActiveFormState = () => {
 };
 
 
-export {setInactiveFormState, setActiveFormState};
+export {setInactiveFormState, setActiveFormState, mainFormElement};
