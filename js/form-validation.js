@@ -4,6 +4,7 @@ const rentalTitleElement = mainFormElement.querySelector('[name="title"]');
 const rentalPriceElement = mainFormElement.querySelector('[name="price"]');
 const roomNumberElement = mainFormElement.querySelector('#room_number');
 const roomCapacityElement = mainFormElement.querySelector('#capacity');
+const typeOfFlatElement = mainFormElement.querySelector('#type');
 const capacityOptions = {
   '1': ['1'],
   '2': ['1','2'],
@@ -19,6 +20,7 @@ const minPriceForANight = {
   'house': '5000',
   'palace': '10000'
 };
+
 
 const pristine = new Pristine(mainFormElement, {
   classTo: 'ad-form__element',
@@ -54,30 +56,23 @@ pristine.addValidator(roomNumberElement, validateRoomsAndCapacity, roomsErrorMes
 pristine.addValidator(roomCapacityElement, validateRoomsAndCapacity, roomsErrorMessage);
 
 
-const validatePriceForANight = (value) => {
-  const typeOfFlat = mainFormElement.querySelector('[name="type"]');
-  return value.length && parseInt(value, 10) >= minPriceForANight[typeOfFlat.value];
-};
+const validatePriceForANight = (value) => value.length && parseInt(value, 10) >= minPriceForANight[typeOfFlatElement.value];
 
-const validatePriceTextError = () => {
-  const typeOfFlat = mainFormElement.querySelector('[name="type"]');
-  return `Минимальная цена за ночь ${minPriceForANight[typeOfFlat.value]}`;
-};
+
+const validatePriceTextError = () => `Минимальная цена за ночь ${minPriceForANight[typeOfFlatElement.value]}`;
 
 const validatePriceChange = () => {
-  const typeOfFlat = mainFormElement.querySelector('[name="type"]');
-  priceForNightElement.placeholder = minPriceForANight[typeOfFlat.value];
+  priceForNightElement.placeholder = minPriceForANight[typeOfFlatElement.value];
   pristine.validate(priceForNightElement);
 };
 
 
-mainFormElement.addEventListener('change', validatePriceChange);
-
+typeOfFlatElement.addEventListener('change', validatePriceChange);
 pristine.addValidator(priceForNightElement, validatePriceForANight, validatePriceTextError);
 
 
-const checkinElement = mainFormElement.querySelector('[name="timein"]');
-const checkoutElement = mainFormElement.querySelector('[name="timeout"]');
+const checkinElement = mainFormElement.querySelector('#timein');
+const checkoutElement = mainFormElement.querySelector('#timeout');
 
 const timeInAndTineOutOptions = {
   '12:00': '12:00',
@@ -92,7 +87,13 @@ const validateChangeOfCheckin = () => {
   pristine.validate(checkoutElement);
 };
 
-mainFormElement.addEventListener('change', validateChangeOfCheckin);
+const validateChangeOfCheckOut = () => {
+  checkinElement.value = timeInAndTineOutOptions[checkoutElement.value];
+  pristine.validate(checkinElement);
+};
+
+checkinElement.addEventListener('change', validateChangeOfCheckin);
+checkoutElement.addEventListener('change', validateChangeOfCheckOut);
 
 pristine.addValidator(checkinElement, validateCheckInAndCheckOut);
 pristine.addValidator(checkoutElement, validateCheckInAndCheckOut);

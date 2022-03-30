@@ -1035,3 +1035,10 @@ fieldset {
 	margin: 15px 5px 5px;
 	width: 70px;
 }
+
+.ad-form__error-text {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  color: #ff6547;
+}
