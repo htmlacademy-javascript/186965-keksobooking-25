@@ -4,11 +4,21 @@ const rentalTitleElement = mainFormElement.querySelector('[name="title"]');
 const rentalPriceElement = mainFormElement.querySelector('[name="price"]');
 const roomNumberElement = mainFormElement.querySelector('#room_number');
 const roomCapacityElement = mainFormElement.querySelector('#capacity');
+const typeOfFlatElement = mainFormElement.querySelector('#type');
 const capacityOptions = {
   '1': ['1'],
   '2': ['1','2'],
   '3': ['1','2','3'],
   '100': ['0']
+};
+
+const priceForNightElement = mainFormElement.querySelector('#price');
+const minPriceForANight = {
+  'bungalow': '0',
+  'flat': '1000',
+  'hotel': '3000',
+  'house': '5000',
+  'palace': '10000'
 };
 
 
@@ -45,6 +55,48 @@ const roomsErrorMessage = () => {
 pristine.addValidator(roomNumberElement, validateRoomsAndCapacity, roomsErrorMessage );
 pristine.addValidator(roomCapacityElement, validateRoomsAndCapacity, roomsErrorMessage);
 
+
+const validatePriceForANight = (value) => value.length && parseInt(value, 10) >= minPriceForANight[typeOfFlatElement.value];
+
+
+const validatePriceTextError = () => `Минимальная цена за ночь ${minPriceForANight[typeOfFlatElement.value]}`;
+
+const validatePriceChange = () => {
+  priceForNightElement.placeholder = minPriceForANight[typeOfFlatElement.value];
+  pristine.validate(priceForNightElement);
+};
+
+
+typeOfFlatElement.addEventListener('change', validatePriceChange);
+pristine.addValidator(priceForNightElement, validatePriceForANight, validatePriceTextError);
+
+
+const checkinElement = mainFormElement.querySelector('#timein');
+const checkoutElement = mainFormElement.querySelector('#timeout');
+
+const timeInAndTineOutOptions = {
+  '12:00': '12:00',
+  '13:00': '13:00',
+  '14:00': '14:00'
+};
+
+const validateCheckInAndCheckOut = () => timeInAndTineOutOptions[checkinElement.value].includes(checkoutElement.value);
+
+const validateChangeOfCheckin = () => {
+  checkoutElement.value = timeInAndTineOutOptions[checkinElement.value];
+  pristine.validate(checkoutElement);
+};
+
+const validateChangeOfCheckOut = () => {
+  checkinElement.value = timeInAndTineOutOptions[checkoutElement.value];
+  pristine.validate(checkinElement);
+};
+
+checkinElement.addEventListener('change', validateChangeOfCheckin);
+checkoutElement.addEventListener('change', validateChangeOfCheckOut);
+
+pristine.addValidator(checkinElement, validateCheckInAndCheckOut);
+pristine.addValidator(checkoutElement, validateCheckInAndCheckOut);
 
 mainFormElement.addEventListener('submit', (evt) => {
   const isValid = pristine.validate();
