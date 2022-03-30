@@ -4,7 +4,7 @@ const rentalTitleElement = mainFormElement.querySelector('[name="title"]');
 const rentalPriceElement = mainFormElement.querySelector('[name="price"]');
 const roomNumberElement = mainFormElement.querySelector('#room_number');
 const roomCapacityElement = mainFormElement.querySelector('#capacity');
-const capacityOptionsElement = {
+const capacityOptions = {
   '1': ['1'],
   '2': ['1','2'],
   '3': ['1','2','3'],
@@ -33,7 +33,7 @@ pristine.addValidator(rentalTitleElement, validateTitle, 'Обязательно
 pristine.addValidator(rentalPriceElement, validatePrice, 'Обязательное поле');
 
 
-const validateRoomsAndCapacity = () => capacityOptionsElement[roomNumberElement.value].includes(roomCapacityElement.value);
+const validateRoomsAndCapacity = () => capacityOptions[roomNumberElement.value].includes(roomCapacityElement.value);
 
 const roomsErrorMessage = () => {
   if(roomNumberElement.value === '1') {
@@ -104,5 +104,3 @@ mainFormElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
-
-
