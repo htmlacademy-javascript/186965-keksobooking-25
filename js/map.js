@@ -42,7 +42,6 @@ mainMarker.on('moveend', (evt) => {
 });
 
 
-
 const similarMarkers = L.icon({
   iconUrl: './img/pin.svg',
   iconSize: [40, 40],
