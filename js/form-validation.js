@@ -1,7 +1,6 @@
 import {mainFormElement} from './form-states.js';
 
 const rentalTitleElement = mainFormElement.querySelector('[name="title"]');
-const rentalPriceElement = mainFormElement.querySelector('[name="price"]');
 const roomNumberElement = mainFormElement.querySelector('#room_number');
 const roomCapacityElement = mainFormElement.querySelector('#capacity');
 const typeOfFlatElement = mainFormElement.querySelector('#type');
@@ -29,10 +28,10 @@ const pristine = new Pristine(mainFormElement, {
 });
 
 const validateTitle = (value) => value.length >= 30 && value.length <= 100;
-const validatePrice = (price) => price.length > 0;
+const validatePrice = (price) => price.length >= 0;
 
 pristine.addValidator(rentalTitleElement, validateTitle, 'Обязательное поле. От 30 до 100 символов.');
-pristine.addValidator(rentalPriceElement, validatePrice, 'Обязательное поле');
+pristine.addValidator(priceForNightElement, validatePrice, 'Обязательное поле');
 
 
 const validateRoomsAndCapacity = () => capacityOptions[roomNumberElement.value].includes(roomCapacityElement.value);
@@ -82,6 +81,7 @@ const timeInAndTineOutOptions = {
 
 const validateCheckInAndCheckOut = () => timeInAndTineOutOptions[checkinElement.value].includes(checkoutElement.value);
 
+
 const validateChangeOfCheckin = () => {
   checkoutElement.value = timeInAndTineOutOptions[checkinElement.value];
   pristine.validate(checkoutElement);
@@ -105,3 +105,5 @@ mainFormElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
+
+export {priceForNightElement, typeOfFlatElement, minPriceForANight, pristine};

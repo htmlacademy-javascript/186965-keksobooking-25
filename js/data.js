@@ -45,7 +45,7 @@ const createCards = () => {
       offer: {
         title: getRandomArrayElement(TITLES),
         address: `${lat}, ${lng}`,
-        price: getRandomNumber(0, 3000),
+        price: `${getRandomNumber(0, 3000)} ₽/ночь`,
         type: getRandomArrayElement(HOUSES_TYPES),
         rooms: getRandomNumber(1, 10),
         guests: getRandomNumber(1, 14),

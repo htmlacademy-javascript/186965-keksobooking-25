@@ -1,9 +1,12 @@
+
+
 const mainFormElement = document.querySelector('.ad-form');
 const formElements = mainFormElement.querySelectorAll('.ad-form__element');
 const formAvatarElement = mainFormElement.querySelector('.ad-form-header__input');
 const formFilterElement = document.querySelector('.map__filters');
 const filterElements = formFilterElement.querySelectorAll('.map__filter');
 const filterFeaturesElement = formFilterElement.querySelector('.map__features');
+const addressFieldElement = mainFormElement.querySelector('#address');
 
 const setInactiveFormState = () => {
   mainFormElement.classList.add('ad-form--disabled');
@@ -22,6 +25,7 @@ const setInactiveFormState = () => {
 
 
 const setActiveFormState = () => {
+  addressFieldElement.value = '35.6895, 139.692';
   mainFormElement.classList.remove('ad-form--disabled');
   formFilterElement.classList.remove('map__filters--disabled');
   formAvatarElement.disabled = false;
@@ -37,4 +41,4 @@ const setActiveFormState = () => {
 };
 
 
-export {setInactiveFormState, setActiveFormState, mainFormElement};
+export {setInactiveFormState, setActiveFormState, mainFormElement, addressFieldElement};

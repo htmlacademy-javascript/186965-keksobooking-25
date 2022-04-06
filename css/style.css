@@ -1053,3 +1053,14 @@ fieldset {
 .hidden {
   display: none;
 }
+
+.ad-form__slider {
+  margin-top: 8px;
+}
+
+.ad-form__error-text {
+  margin-top: 2px;
+  padding-left: 5px;
+  color: red;
+  font-weight: 500;
+}
