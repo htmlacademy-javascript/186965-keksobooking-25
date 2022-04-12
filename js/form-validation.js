@@ -98,12 +98,4 @@ checkoutElement.addEventListener('change', validateChangeOfCheckOut);
 pristine.addValidator(checkinElement, validateCheckInAndCheckOut);
 pristine.addValidator(checkoutElement, validateCheckInAndCheckOut);
 
-mainFormElement.addEventListener('submit', (evt) => {
-  const isValid = pristine.validate();
-
-  if(!isValid) {
-    evt.preventDefault();
-  }
-});
-
 export {priceForNightElement, typeOfFlatElement, minPriceForANight, pristine};

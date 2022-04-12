@@ -1,5 +1,5 @@
-import { createCards } from './data.js';
-import { inflectWord } from './util.js';
+import { inflectWord, setHidden } from './util.js';
+
 
 const TYPES_OF_HOUSES = {
   flat: 'Квартира',
@@ -8,13 +8,6 @@ const TYPES_OF_HOUSES = {
   palace: 'Дворец',
   hotel: 'Отель'
 };
-
-
-const templateCardElement = document.querySelector('#card').content.querySelector('.popup'); // шаблон карточки
-
-const similarCards = createCards(); // массив сгенерированной информации для карточек
-
-const similarFragmentElement = document.createDocumentFragment();
 
 
 const createHouseCapacityDescription = (item, element) => {
@@ -32,7 +25,7 @@ const createHouseFeaturesList = (item, element) => {
   popupFeaturesElements.forEach((popupFeaturesListItem) => {
     const isNessary = item.offer.features.some((feature) => popupFeaturesListItem.classList.contains(`popup__feature--${feature}`));
 
-    if(!isNessary) {
+    if (!isNessary) {
       popupFeaturesListItem.remove();
     }
   });
@@ -59,30 +52,38 @@ const createHousePhotos = (items, element) => {
 };
 
 
-similarCards.forEach((card) => {
+const createSimilarCards = (card) => {
+  const templateCardElement = document.querySelector('#card').content.querySelector('.popup');
+
   const similarCardElement = templateCardElement.cloneNode(true);
   const offerType = card.offer.type;
 
   similarCardElement.querySelector('.popup__title').textContent = card.offer.title;
   similarCardElement.querySelector('.popup__text--address').textContent = card.offer.address;
-  similarCardElement.querySelector('.popup__text--price').textContent = card.offer.price;
+  similarCardElement.querySelector('.popup__text--price').textContent = `${card.offer.price} ₽/ночь`;
   similarCardElement.querySelector('.popup__type').textContent = TYPES_OF_HOUSES[offerType];
 
   createHouseCapacityDescription(card, similarCardElement);
 
   similarCardElement.querySelector('.popup__text--time').textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
 
-  createHouseFeaturesList(card, similarCardElement);
+  if(card.offer.features === undefined) {
+    setHidden(similarCardElement.querySelector('.popup__features'));
+  } else {
+    createHouseFeaturesList(card, similarCardElement);
+  }
 
   similarCardElement.querySelector('.popup__description').textContent = card.offer.description;
 
-  createHousePhotos(card, similarCardElement);
+  if(card.offer.photos === undefined) {
+    setHidden(similarCardElement.querySelector('.popup__photos'));
+  } else {
+    createHousePhotos(card, similarCardElement);
+  }
 
   similarCardElement.querySelector('.popup__avatar').src = card.author.avatar;
 
-  similarFragmentElement.append(similarCardElement);
+  return similarCardElement;
+};
 
-});
-
-
-export {similarCards, createHouseCapacityDescription, TYPES_OF_HOUSES, createHouseFeaturesList, createHousePhotos};
+export {createSimilarCards};
