@@ -38,3 +38,5 @@ typeOfFlatElement.addEventListener('change', (evt) => {
 
   pristine.validate(priceForNightElement);
 });
+
+export { sliderElement };

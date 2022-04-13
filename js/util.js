@@ -57,5 +57,12 @@ const showAlert = (message) => {
   }, 6000);
 };
 
+const CENTER_COORDINATES = {
+  lat: 35.6895,
+  lng: 139.692
+};
 
-export {getRandomArrayElement, getRandomNumber, getRandomCoordinate, inflectWord, setHidden, showAlert};
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomArrayElement, getRandomNumber, getRandomCoordinate, inflectWord, setHidden, showAlert, CENTER_COORDINATES, isEscapeKey};

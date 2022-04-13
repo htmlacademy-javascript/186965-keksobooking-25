@@ -1,4 +1,4 @@
-import {mainFormElement} from './form-states.js';
+import { mainFormElement } from './form-states.js';
 
 const rentalTitleElement = mainFormElement.querySelector('[name="title"]');
 const roomNumberElement = mainFormElement.querySelector('#room_number');

@@ -1,8 +1,6 @@
 
-
 const SIMILAR_CARD_NUMBER = 10;
 const SERVER_ERROR_MESSAGE = 'Не удалось загрузить данные. Попробуйте позже.';
-
 
 const getData = (onSuccess, onFail) => {
   fetch('https://25.javascript.pages.academy/keksobooking/data')

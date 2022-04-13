@@ -1,5 +1,6 @@
-import { setActiveFormState, addressFieldElement } from './form-states.js';
+
 import { createSimilarCards } from './similar-elements.js';
+import { setActiveFormState, addressFieldElement } from './form-states.js';
 
 const MAP_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const CENTER_COORDINATES = {
@@ -92,4 +93,4 @@ const resetMapPin = () => {
   }, 12);
 };
 
-export {addMarkers, resetMapPin, CENTER_COORDINATES};
+export {addMarkers, resetMapPin };
