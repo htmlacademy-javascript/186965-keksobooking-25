@@ -1,4 +1,5 @@
 
+import { CENTER_COORDINATES } from './util.js';
 
 const mainFormElement = document.querySelector('.ad-form');
 const formElements = mainFormElement.querySelectorAll('.ad-form__element');
@@ -23,9 +24,8 @@ const setInactiveFormState = () => {
   });
 };
 
-
 const setActiveFormState = () => {
-  addressFieldElement.value = '35.6895, 139.692';
+  addressFieldElement.value = `${CENTER_COORDINATES.lat}, ${CENTER_COORDINATES.lng}`;
   mainFormElement.classList.remove('ad-form--disabled');
   formFilterElement.classList.remove('map__filters--disabled');
   formAvatarElement.disabled = false;

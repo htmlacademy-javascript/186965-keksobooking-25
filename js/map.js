@@ -1,15 +1,21 @@
-import {setActiveFormState, addressFieldElement} from './form-states.js';
-import {similarCards, createHouseCapacityDescription, TYPES_OF_HOUSES, createHouseFeaturesList, createHousePhotos} from './similar-elements.js';
 
+import { createSimilarCards } from './similar-elements.js';
+import { setActiveFormState, addressFieldElement } from './form-states.js';
+
+const MAP_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const CENTER_COORDINATES = {
+  lat: 35.6895,
+  lng: 139.692
+};
 const mainMap = L.map('map-canvas').on('load', () => {
   setActiveFormState();
 }).setView({
-  lat: 35.6895,
-  lng: 139.692,
-}, 9);
+  lat: CENTER_COORDINATES.lat,
+  lng: CENTER_COORDINATES.lng,
+}, 12);
 
 L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  `${MAP_URL}`,
   {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
@@ -25,8 +31,8 @@ const mainPinIcon = L.icon({
 
 const mainMarker = L.marker(
   {
-    lat: 35.6895,
-    lng: 139.692,
+    lat: CENTER_COORDINATES.lat,
+    lng: CENTER_COORDINATES.lng,
   },
   {
     draggable: true,
@@ -48,29 +54,6 @@ const similarMarkers = L.icon({
   iconAnchor: [20, 40],
 });
 
-const createPopup = (cardItem) => {
-  const templatePopupElement = document.querySelector('#card').content.querySelector('.popup');
-  const popupItemElement = templatePopupElement.cloneNode(true);
-  const offerType = cardItem.offer.type;
-
-  popupItemElement.querySelector('.popup__avatar').src = cardItem.author.avatar;
-  popupItemElement.querySelector('.popup__title').textContent = cardItem.offer.title;
-  popupItemElement.querySelector('.popup__text--address').textContent = `Координаты ${cardItem.location.lat}, ${cardItem.location.lng}`;
-  popupItemElement.querySelector('.popup__text--price').textContent = `${cardItem.offer.price}`;
-  popupItemElement.querySelector('.popup__type').textContent = TYPES_OF_HOUSES[offerType];
-
-  createHouseCapacityDescription(cardItem, popupItemElement);
-
-  popupItemElement.querySelector('.popup__text--time').textContent = `Заезд после ${cardItem.offer.checkin}, выезд до ${cardItem.offer.checkout}`;
-
-  createHouseFeaturesList(cardItem, popupItemElement);
-
-  popupItemElement.querySelector('.popup__description').textContent = cardItem.offer.description;
-
-  createHousePhotos(cardItem, popupItemElement);
-
-  return popupItemElement;
-};
 
 const markerGroup = L.layerGroup().addTo(mainMap);
 
@@ -82,16 +65,32 @@ const createMarker = (pin) => {
   },
   {
     similarMarkers,
-  }
-  );
+  });
 
   marker
     .addTo(markerGroup)
-    .bindPopup(createPopup(pin));
+    .bindPopup(createSimilarCards(pin));
 
 };
 
-similarCards.forEach((point) => createMarker(point));
+const addMarkers = (data) => {
+  data.forEach((pin) => createMarker(pin));
+};
 
-// markerGroup.clearLayers();
+markerGroup.clearLayers();
 
+const resetMapPin = () => {
+  mainMarker.setLatLng({
+    lat: CENTER_COORDINATES.lat,
+    lng: CENTER_COORDINATES.lng
+  });
+
+  mainMap.closePopup();
+
+  mainMap.setView({
+    lat: CENTER_COORDINATES.lat,
+    lng: CENTER_COORDINATES.lng,
+  }, 12);
+};
+
+export {addMarkers, resetMapPin };

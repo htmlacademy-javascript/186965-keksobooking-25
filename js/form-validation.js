@@ -1,4 +1,4 @@
-import {mainFormElement} from './form-states.js';
+import { mainFormElement } from './form-states.js';
 
 const rentalTitleElement = mainFormElement.querySelector('[name="title"]');
 const roomNumberElement = mainFormElement.querySelector('#room_number');
@@ -97,13 +97,5 @@ checkoutElement.addEventListener('change', validateChangeOfCheckOut);
 
 pristine.addValidator(checkinElement, validateCheckInAndCheckOut);
 pristine.addValidator(checkoutElement, validateCheckInAndCheckOut);
-
-mainFormElement.addEventListener('submit', (evt) => {
-  const isValid = pristine.validate();
-
-  if(!isValid) {
-    evt.preventDefault();
-  }
-});
 
 export {priceForNightElement, typeOfFlatElement, minPriceForANight, pristine};

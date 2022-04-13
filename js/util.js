@@ -29,6 +29,40 @@ const inflectWord = (number, words) => {
 };
 
 
+const setHidden = (element) => {
+  element.classList.add('hidden');
+};
+
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-export {getRandomArrayElement, getRandomNumber, getRandomCoordinate, inflectWord};
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = 0;
+  alertContainer.style.top = 0;
+  alertContainer.style.right = 0;
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+  alertContainer.style.color = 'white';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, 6000);
+};
+
+const CENTER_COORDINATES = {
+  lat: 35.6895,
+  lng: 139.692
+};
+
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomArrayElement, getRandomNumber, getRandomCoordinate, inflectWord, setHidden, showAlert, CENTER_COORDINATES, isEscapeKey};
