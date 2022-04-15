@@ -1,5 +1,5 @@
 
-const SIMILAR_CARD_NUMBER = 10;
+
 const SERVER_ERROR_MESSAGE = 'Не удалось загрузить данные. Попробуйте позже.';
 
 const getData = (onSuccess, onFail) => {
@@ -32,4 +32,4 @@ const sendData = (onSuccess, onFail, body) => {
 };
 
 
-export {getData, SIMILAR_CARD_NUMBER, sendData};
+export {getData,  sendData};
