@@ -7,13 +7,12 @@ import { showAlert } from './util.js';
 import './server-messages.js';
 import { addMarkers } from './map.js';
 import {setFormSubmit} from './form-submit.js';
-import  {changeEvent, filters} from './filter.js';
+import  {filterChange} from './filter.js';
 
 
 getData((cards) => {
   addMarkers(cards);
-  changeEvent(() => addMarkers(cards));
-  // console.log(cards);
+  filterChange(() => addMarkers(cards));
 },
 showAlert
 );

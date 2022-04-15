@@ -1,7 +1,7 @@
 
 import { createSimilarCards } from './similar-elements.js';
 import { setActiveFormState, addressFieldElement } from './form-states.js';
-import { filters } from './filter.js';
+import { totalMatch } from './filter.js';
 
 
 const MAP_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -78,7 +78,10 @@ const createMarker = (pin) => {
 
 const addMarkers = (data) => {
   markerGroup.clearLayers();
-  data.forEach((pin) => createMarker(pin));
+  const filteredData = totalMatch(data);
+  filteredData.slice(0, SIMILAR_CARD_NUMBER).forEach((pin) => {
+    createMarker(pin);
+  });
 };
 
 
