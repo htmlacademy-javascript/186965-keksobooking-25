@@ -1,6 +1,3 @@
-
-import { markerGroup, createMarker } from './map.js';
-
 const DEFAULT_VALUE = 'any';
 const filterFormElement = document.querySelector('.map__filters');
 const typeOfHouseElement = filterFormElement.querySelector('#housing-type');
@@ -19,33 +16,29 @@ const getAllCheckedCheckboxes = () => {
   return allCheckedCheckboxesArray;
 };
 
-const filterType = (data) => {
-  data.filter((item) => typeOfHouseElement.value === DEFAULT_VALUE || typeOfHouseElement.value === item.offer.type);
-};
+const filterType = (item) => typeOfHouseElement.value === DEFAULT_VALUE || typeOfHouseElement.value === item.offer.type;
 
-const filterPrice = (data) => {
-  data.filter((item) => housePriceElement.value === DEFAULT_VALUE || (item.offer.price < 10000 && housePriceElement.value === 'low') && (item.offer.price >= 10000 && item.offer.price <= 50000 && housePriceElement.value === 'middle') && (item.offer.price > 50000 && housePriceElement.value === 'high'));
-};
+const filterPrice = (item) =>  housePriceElement.value === DEFAULT_VALUE || (item.offer.price < 10000 && housePriceElement.value === 'low') || (item.offer.price >= 10000 && item.offer.price <= 50000 && housePriceElement.value === 'middle') || (item.offer.price > 50000 && housePriceElement.value === 'high');
 
-const filterRooms = (data) => {
-  data.filter((item) => numberOfRoomsElement.value === DEFAULT_VALUE || +numberOfRoomsElement.value === item.offer.rooms);
-};
+const filterRooms = (item) => numberOfRoomsElement.value === DEFAULT_VALUE || +numberOfRoomsElement.value === item.offer.rooms;
 
-const filterGuests = (data) => {
-  data.filter((item) => amountOfGuestElement.value === DEFAULT_VALUE || +amountOfGuestElement.value === item.offer.guests);
-};
+const filterGuests = (item) => amountOfGuestElement.value === DEFAULT_VALUE || +amountOfGuestElement.value === item.offer.guests;
 
 
-const filterFeatures = (data) => {
-  data.filter((item) => {
-    if(item.offer.features) {
-      const matchedFeatures = getAllCheckedCheckboxes().forEach((checkbox) => item.offer.features.includes(checkbox));
-      return  matchedFeatures;
+const filterFeatures = (item) => {
+  const requiredFeatures = getAllCheckedCheckboxes();
+  const itemFeatures = item.offer.features || [];
+
+  for(const feature of requiredFeatures) {
+    if(!itemFeatures.includes(feature.value)) {
+      return false;
     }
-  });
+  }
+
+  return true;
 };
 
-const totalMatch = (data) => filterType(data) && filterPrice(data) && filterRooms(data) && filterGuests(data) && filterFeatures(data);
+const totalMatch = (data) => data.filter((item) => filterType(item) && filterPrice(item) && filterRooms(item) && filterGuests(item) && filterFeatures(item));
 
 
 const filterChange = (cb) => {
@@ -53,19 +46,5 @@ const filterChange = (cb) => {
     cb();
   });
 };
-export { filterChange, totalMatch  };
 
-
-
-
-
-
-
-// массив.filter((item) => {
-//   return (item подходит под условие1 && item подходит под условие2)
-// })
-
-
-// Массив — это данные, которые тебе прилетели с сервера. То есть информация по всем хатам
-
-// А условия — это фильтры по всем всплывашкам (удобства там всякие, что ещё есть)
+export { filterChange, totalMatch};
