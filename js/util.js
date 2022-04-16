@@ -65,4 +65,13 @@ const CENTER_COORDINATES = {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomArrayElement, getRandomNumber, getRandomCoordinate, inflectWord, setHidden, showAlert, CENTER_COORDINATES, isEscapeKey};
+const debounce = (cb, timeoutDelay) => {
+  let timerId;
+
+  return (...rest) => {
+    clearTimeout(timerId);
+    timerId = setTimeout(() => cb.apply(this, rest), timeoutDelay);
+  };
+};
+
+export {getRandomArrayElement, getRandomNumber, getRandomCoordinate, inflectWord, setHidden, showAlert, CENTER_COORDINATES, isEscapeKey, debounce};

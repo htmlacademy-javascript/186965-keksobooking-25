@@ -1,8 +1,11 @@
 
 import { createSimilarCards } from './similar-elements.js';
 import { setActiveFormState, addressFieldElement } from './form-states.js';
+import { totalMatch } from './filter.js';
+
 
 const MAP_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const SIMILAR_CARD_NUMBER = 10;
 const CENTER_COORDINATES = {
   lat: 35.6895,
   lng: 139.692
@@ -74,10 +77,13 @@ const createMarker = (pin) => {
 };
 
 const addMarkers = (data) => {
-  data.forEach((pin) => createMarker(pin));
+  markerGroup.clearLayers();
+  const filteredData = totalMatch(data);
+  filteredData.slice(0, SIMILAR_CARD_NUMBER).forEach((pin) => {
+    createMarker(pin);
+  });
 };
 
-markerGroup.clearLayers();
 
 const resetMapPin = () => {
   mainMarker.setLatLng({
@@ -93,4 +99,4 @@ const resetMapPin = () => {
   }, 12);
 };
 
-export {addMarkers, resetMapPin };
+export {addMarkers, resetMapPin, markerGroup, createMarker };
