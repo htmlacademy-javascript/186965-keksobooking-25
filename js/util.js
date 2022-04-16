@@ -74,4 +74,6 @@ const debounce = (cb, timeoutDelay) => {
   };
 };
 
-export {getRandomArrayElement, getRandomNumber, getRandomCoordinate, inflectWord, setHidden, showAlert, CENTER_COORDINATES, isEscapeKey, debounce};
+const RENDER_DELAY = 500;
+
+export { getRandomArrayElement, getRandomNumber, getRandomCoordinate, inflectWord, setHidden, showAlert, CENTER_COORDINATES, isEscapeKey, debounce, RENDER_DELAY };

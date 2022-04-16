@@ -6,10 +6,11 @@ import { getData } from './fetch-api.js';
 import { debounce, showAlert } from './util.js';
 import './server-messages.js';
 import { addMarkers } from './map.js';
-import {setFormSubmit} from './form-submit.js';
-import  {filterChange} from './filter.js';
-
-const RENDER_DELAY = 500;
+import { setFormSubmit } from './form-submit.js';
+import { filterChange } from './filter.js';
+import { RENDER_DELAY } from './util.js';
+import './form-states.js';
+import './avatar.js';
 
 
 getData((cards) => {
