@@ -1,4 +1,3 @@
-
 const SERVER_ERROR_MESSAGE = 'Не удалось загрузить данные. Попробуйте позже.';
 
 const getData = (onSuccess, onFail) => {

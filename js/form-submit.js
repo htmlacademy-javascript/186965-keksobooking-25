@@ -1,13 +1,25 @@
 import { mainFormElement, addressFieldElement } from './form-states.js';
 import { CENTER_COORDINATES } from './util.js';
-import { resetMapPin } from './map.js';
-import { sendData } from './fetch-api.js';
+import { resetMapPin, addMarkers } from './map.js';
+import { getData, sendData } from './fetch-api.js';
 import { showErrorMessage, showSuccessMessage} from './server-messages.js';
 import { pristine, priceForNightElement } from './form-validation.js';
 import { sliderElement } from './price-slider.js';
+import { filterFormElement  } from './filter.js';
+import { avatarPreviewElement, newImage } from './avatar.js';
 
-
+const AVATAR_DEFAULT_URL = 'img/muffin-grey.svg';
 const submitBtn = mainFormElement.querySelector('.ad-form__submit');
+
+const resetImages = () => {
+  newImage.remove();
+  avatarPreviewElement.src = `${AVATAR_DEFAULT_URL}`;
+};
+
+const resetSlider = () => {
+  sliderElement.noUiSlider.set(priceForNightElement .placeholder);
+  sliderElement.noUiSlider.reset();
+};
 
 const resetForm = () => {
   mainFormElement.reset();
@@ -15,21 +27,26 @@ const resetForm = () => {
   priceForNightElement.value = 0;
 };
 
+
 const resetFormBtn = mainFormElement.querySelector('.ad-form__reset');
 
 resetFormBtn.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetMapPin();
+  filterFormElement.reset();
+  resetSlider();
+  resetImages();
   resetForm();
+  getData(addMarkers, showErrorMessage);
 });
 
 const blockSubmitBtn = () => {
-  submitBtn.disable = true;
+  submitBtn.disabled = true;
   submitBtn.textContent = 'Отправляю...';
 };
 
 const unblockSubmitBtn = () => {
-  submitBtn.disable = false;
+  submitBtn.disabled = false;
   submitBtn.textContent = 'Опубликовать';
 };
 
@@ -45,8 +62,11 @@ const setFormSubmit = () => {
           unblockSubmitBtn();
           showSuccessMessage();
           resetMapPin();
-          sliderElement.noUiSlider.reset();
+          resetSlider();
+          filterFormElement.reset();
+          resetImages();
           resetForm();
+          getData(addMarkers, showErrorMessage);
         },
         () => {
           showErrorMessage();

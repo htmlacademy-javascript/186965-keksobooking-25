@@ -5,6 +5,7 @@ const avatarInputElement = mainFormElement.querySelector('#avatar');
 const avatarPreviewElement = mainFormElement.querySelector('.ad-form-header__preview img');
 const housePhotoElement = mainFormElement.querySelector('#images');
 const housePreviewElement = mainFormElement.querySelector('.ad-form__photo');
+const newImage = document.createElement('img');
 
 
 avatarInputElement.addEventListener('change', () => {
@@ -26,7 +27,6 @@ housePhotoElement.addEventListener('change', () => {
   const matches = FILE_TYPES.some((file) => photoName.endsWith(file));
 
   if(matches) {
-    const newImage = document.createElement('img');
     newImage.style.width = '100%';
     newImage.style.height = '100%';
     newImage.src = URL.createObjectURL(photo);
@@ -34,3 +34,6 @@ housePhotoElement.addEventListener('change', () => {
     housePreviewElement.append(newImage);
   }
 });
+
+
+export { avatarPreviewElement, housePreviewElement, newImage };

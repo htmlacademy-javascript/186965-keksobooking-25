@@ -1,6 +1,6 @@
 
 import { createSimilarCards } from './similar-elements.js';
-import { setActiveFormState, addressFieldElement } from './form-states.js';
+import { setActiveFormState, addressFieldElement, setInactiveFormState } from './form-states.js';
 import { totalMatch } from './filter.js';
 
 
@@ -10,6 +10,9 @@ const CENTER_COORDINATES = {
   lat: 35.6895,
   lng: 139.692
 };
+
+setInactiveFormState();
+
 const mainMap = L.map('map-canvas').on('load', () => {
   setActiveFormState();
 }).setView({
@@ -26,7 +29,7 @@ L.tileLayer(
 
 
 const mainPinIcon = L.icon({
-  iconUrl: './img/main-pin.svg',
+  iconUrl: '../img/main-pin.svg',
   iconSize: [52,52],
   iconAnchor: [26, 52],
 });
@@ -50,9 +53,8 @@ mainMarker.on('moveend', (evt) => {
   addressFieldElement.value = `${(coordinates.lat).toFixed(5)}, ${(coordinates.lng).toFixed(5)}`;
 });
 
-
 const similarMarkers = L.icon({
-  iconUrl: './img/pin.svg',
+  iconUrl: '../img/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
@@ -67,7 +69,7 @@ const createMarker = (pin) => {
     lng,
   },
   {
-    similarMarkers,
+    icon: similarMarkers,
   });
 
   marker
@@ -79,6 +81,7 @@ const createMarker = (pin) => {
 const addMarkers = (data) => {
   markerGroup.clearLayers();
   const filteredData = totalMatch(data);
+
   filteredData.slice(0, SIMILAR_CARD_NUMBER).forEach((pin) => {
     createMarker(pin);
   });
@@ -97,6 +100,10 @@ const resetMapPin = () => {
     lat: CENTER_COORDINATES.lat,
     lng: CENTER_COORDINATES.lng,
   }, 12);
+
+  markerGroup.clearLayers();
+
 };
+
 
 export {addMarkers, resetMapPin, markerGroup, createMarker };

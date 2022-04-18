@@ -1,4 +1,6 @@
 const DEFAULT_VALUE = 'any';
+const OPTION_PRICE_HIGHT = 50000;
+const OPTION_PRICE_LOW = 10000;
 const filterFormElement = document.querySelector('.map__filters');
 const typeOfHouseElement = filterFormElement.querySelector('#housing-type');
 const housePriceElement = filterFormElement.querySelector('#housing-price');
@@ -18,7 +20,7 @@ const getAllCheckedCheckboxes = () => {
 
 const filterType = (item) => typeOfHouseElement.value === DEFAULT_VALUE || typeOfHouseElement.value === item.offer.type;
 
-const filterPrice = (item) =>  housePriceElement.value === DEFAULT_VALUE || (item.offer.price < 10000 && housePriceElement.value === 'low') || (item.offer.price >= 10000 && item.offer.price <= 50000 && housePriceElement.value === 'middle') || (item.offer.price > 50000 && housePriceElement.value === 'high');
+const filterPrice = (item) =>  housePriceElement.value === DEFAULT_VALUE || (item.offer.price < `${OPTION_PRICE_LOW}` && housePriceElement.value === 'low') || (item.offer.price >= `${OPTION_PRICE_LOW}` && item.offer.price <= `${OPTION_PRICE_HIGHT}` && housePriceElement.value === 'middle') || (item.offer.price > `${OPTION_PRICE_HIGHT}` && housePriceElement.value === 'high');
 
 const filterRooms = (item) => numberOfRoomsElement.value === DEFAULT_VALUE || +numberOfRoomsElement.value === item.offer.rooms;
 
@@ -47,4 +49,4 @@ const filterChange = (cb) => {
   });
 };
 
-export { filterChange, totalMatch};
+export { filterChange, totalMatch, filterFormElement };
