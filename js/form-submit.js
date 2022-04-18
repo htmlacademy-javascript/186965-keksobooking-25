@@ -41,12 +41,12 @@ resetFormBtn.addEventListener('click', (evt) => {
 });
 
 const blockSubmitBtn = () => {
-  submitBtn.disable = true;
+  submitBtn.disabled = true;
   submitBtn.textContent = 'Отправляю...';
 };
 
 const unblockSubmitBtn = () => {
-  submitBtn.disable = false;
+  submitBtn.disabled = false;
   submitBtn.textContent = 'Опубликовать';
 };
 

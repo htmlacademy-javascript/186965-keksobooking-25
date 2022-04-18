@@ -29,7 +29,7 @@ L.tileLayer(
 
 
 const mainPinIcon = L.icon({
-  iconUrl: './img/main-pin.svg',
+  iconUrl: '../img/main-pin.svg',
   iconSize: [52,52],
   iconAnchor: [26, 52],
 });
@@ -53,16 +53,14 @@ mainMarker.on('moveend', (evt) => {
   addressFieldElement.value = `${(coordinates.lat).toFixed(5)}, ${(coordinates.lng).toFixed(5)}`;
 });
 
-
 const similarMarkers = L.icon({
-  iconUrl: './img/pin.svg',
+  iconUrl: '../img/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
 
 
 const markerGroup = L.layerGroup().addTo(mainMap);
-
 
 const createMarker = (pin) => {
   const {lat, lng} = pin.location;
@@ -71,7 +69,7 @@ const createMarker = (pin) => {
     lng,
   },
   {
-    similarMarkers,
+    icon: similarMarkers,
   });
 
   marker
