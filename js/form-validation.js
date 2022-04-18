@@ -1,5 +1,7 @@
 import { mainFormElement } from './form-states.js';
 
+const MIN_LENGTH = 30;
+const MAX_LENGTH = 100;
 const rentalTitleElement = mainFormElement.querySelector('[name="title"]');
 const roomNumberElement = mainFormElement.querySelector('#room_number');
 const roomCapacityElement = mainFormElement.querySelector('#capacity');
@@ -27,7 +29,7 @@ const pristine = new Pristine(mainFormElement, {
   errorTextClass: 'ad-form__error-text',
 });
 
-const validateTitle = (value) => value.length >= 30 && value.length <= 100;
+const validateTitle = (value) => value.length >= `${MIN_LENGTH}` && value.length <= `${MAX_LENGTH}`;
 const validatePrice = (price) => price.length >= 0;
 
 pristine.addValidator(rentalTitleElement, validateTitle, 'Обязательное поле. От 30 до 100 символов.');
@@ -56,10 +58,7 @@ pristine.addValidator(roomCapacityElement, validateRoomsAndCapacity, roomsErrorM
 
 
 const validatePriceForANight = (value) => value.length && parseInt(value, 10) >= minPriceForANight[typeOfFlatElement.value];
-
-
 const validatePriceTextError = () => `Минимальная цена за ночь ${minPriceForANight[typeOfFlatElement.value]}`;
-
 const validatePriceChange = () => {
   priceForNightElement.placeholder = minPriceForANight[typeOfFlatElement.value];
   pristine.validate(priceForNightElement);

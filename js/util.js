@@ -1,3 +1,10 @@
+const CENTER_COORDINATES = {
+  lat: 35.6895,
+  lng: 139.692
+};
+
+const RENDER_DELAY = 500;
+
 // Random number
 const getRandomNumber = (min, max) => {
   if(min >= max  || min < 0 || max < 0) {
@@ -57,11 +64,6 @@ const showAlert = (message) => {
   }, 6000);
 };
 
-const CENTER_COORDINATES = {
-  lat: 35.6895,
-  lng: 139.692
-};
-
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
@@ -74,6 +76,5 @@ const debounce = (cb, timeoutDelay) => {
   };
 };
 
-const RENDER_DELAY = 500;
 
 export { getRandomArrayElement, getRandomNumber, getRandomCoordinate, inflectWord, setHidden, showAlert, CENTER_COORDINATES, isEscapeKey, debounce, RENDER_DELAY };
