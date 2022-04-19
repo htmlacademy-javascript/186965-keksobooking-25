@@ -38,7 +38,7 @@ pristine.addValidator(priceForNightElement, validatePrice, 'Обязательн
 
 const validateRoomsAndCapacity = () => capacityOptions[roomNumberElement.value].includes(roomCapacityElement.value);
 
-const roomsErrorMessage = () => {
+const setRoomsErrorMessage = () => {
   if(roomNumberElement.value === '1') {
     return `${roomNumberElement.value} комната только для 1 гостя`;
   }
@@ -53,8 +53,8 @@ const roomsErrorMessage = () => {
   }
 };
 
-pristine.addValidator(roomNumberElement, validateRoomsAndCapacity, roomsErrorMessage );
-pristine.addValidator(roomCapacityElement, validateRoomsAndCapacity, roomsErrorMessage);
+pristine.addValidator(roomNumberElement, validateRoomsAndCapacity, setRoomsErrorMessage );
+pristine.addValidator(roomCapacityElement, validateRoomsAndCapacity, setRoomsErrorMessage);
 
 
 const validatePriceForANight = (value) => value.length && parseInt(value, 10) >= minPriceForANight[typeOfFlatElement.value];

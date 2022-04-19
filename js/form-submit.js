@@ -1,5 +1,5 @@
 import { mainFormElement, addressFieldElement } from './form-states.js';
-import { CENTER_COORDINATES } from './util.js';
+import { CENTER_COORDINATES, showAlert } from './util.js';
 import { resetMapPin, addMarkers } from './map.js';
 import { getData, sendData } from './fetch-api.js';
 import { showErrorMessage, showSuccessMessage} from './server-messages.js';
@@ -37,7 +37,7 @@ resetFormBtn.addEventListener('click', (evt) => {
   resetSlider();
   resetImages();
   resetForm();
-  getData(addMarkers, showErrorMessage);
+  getData(addMarkers, showAlert);
 });
 
 const blockSubmitBtn = () => {
@@ -66,7 +66,7 @@ const setFormSubmit = () => {
           filterFormElement.reset();
           resetImages();
           resetForm();
-          getData(addMarkers, showErrorMessage);
+          getData(addMarkers, showAlert);
         },
         () => {
           showErrorMessage();
