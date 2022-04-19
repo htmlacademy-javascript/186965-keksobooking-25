@@ -31,7 +31,6 @@ const createHouseFeaturesList = (item, element) => {
   });
 };
 
-
 const createHousePhotos = (items, element) => {
   const photoContainerElement = element.querySelector('.popup__photos');
   photoContainerElement.innerHTML = '';
